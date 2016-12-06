@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use Yii;
@@ -12,6 +13,13 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+
+use frontend\models\SearchForm;
+use yii\data\Pagination;
+use app\models\Anuncios;
+use app\models\Distritos;
+use app\models\Concelhos;
+use yii\helpers\Html;
 
 /**
  * Site controller
@@ -142,6 +150,43 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays search page.
+     *
+     * @return mixed
+     */
+    public function actionSearch()
+    {
+
+        $model = new SearchForm();
+        if ($model->load(Yii::$app->request->post())) {
+
+            $distrito = Yii::$app->request->post('distrito','');
+            $concelho = Yii::$app->request->post('concelho','');
+
+            $anunciosp = Anuncios::find()
+                            ->where(['nome_distritos' => $distrito])
+                            ->andWhere(['nome_concelhos' => $concelho])
+                            ->all();
+
+            return $this->render('search', [
+                'model' => $model,
+                'anunciosp' => $anunciosp,
+                'distrito' => $distrito,
+            ]);
+
+        } else {
+
+            $anuncios = Anuncios::find()->all();
+
+            return $this->render('search', [
+                'model' => $model,
+                'anuncios' => $anuncios,
+            ]);
+
+        }
+    }
+
+    /**
      * Signs user up.
      *
      * @return mixed
@@ -210,4 +255,6 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+
 }

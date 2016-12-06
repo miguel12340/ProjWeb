@@ -4,16 +4,16 @@
 use yii\helpers\Html;
 use frontend\assets\AppAsset;
 
-$this->title = 'Sobre Nós';
+$this->title = 'Qwartus - About';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>About Us</h1>
 
     <div class="container-fluid">
 
-    	<div class="back_for_text">
+    	<div class="back_for">
 		    <p><b>QWARTUS</b> é o website que lhe permite encontrar o seu quarto ao melhor preço.</p>
 
 		    <p>Também irá disponibilizar suporte a quem permita colocar quartos a arrendar de maneira a que encontre o arrendatário ao seu gosto.</p>

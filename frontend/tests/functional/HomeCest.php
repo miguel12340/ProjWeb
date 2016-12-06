@@ -9,9 +9,9 @@ class HomeCest
     public function checkOpen(FunctionalTester $I)
     {
         $I->amOnPage(\Yii::$app->homeUrl);
-        $I->see('My Company');
+        $I->see('Qwartus');
         $I->seeLink('About');
         $I->click('About');
-        $I->see('This is the About page.');
+        $I->see('é o website que lhe permite encontrar o seu quarto ao melhor preço.');
     }
 }
