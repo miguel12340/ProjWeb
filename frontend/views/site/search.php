@@ -24,8 +24,7 @@
 		<div class="row">
 			<?php $form = ActiveForm::begin(['id' => 'form-search',
 											 'options' => [
-											 	'class' => 'form-inline',
-											 	'method' => 'POST']
+											 	'class' => 'form-inline']
 											]); ?>
 				<div class="col-lg-5">
 					<div class="form-group">
@@ -60,7 +59,6 @@
 				<ul>
 				<?php 
 					if (isset($anunciosp)) {
-						echo $distrito;
 						foreach ($anunciosp as $anunciop) {
 	                    echo '<div class="col-sm-6 col-md-4">
 	                                <div class="thumbnail">

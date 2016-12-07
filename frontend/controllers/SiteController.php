@@ -160,18 +160,14 @@ class SiteController extends Controller
         $model = new SearchForm();
         if ($model->load(Yii::$app->request->post())) {
 
-            $distrito = Yii::$app->request->post('distrito','');
-            $concelho = Yii::$app->request->post('concelho','');
-
             $anunciosp = Anuncios::find()
-                            ->where(['nome_distritos' => $distrito])
-                            ->andWhere(['nome_concelhos' => $concelho])
+                            ->where(['id_distritos' => $model->distritos])
+                            ->andWhere(['id_concelhos' => $model->concelhos])
                             ->all();
 
             return $this->render('search', [
                 'model' => $model,
                 'anunciosp' => $anunciosp,
-                'distrito' => $distrito,
             ]);
 
         } else {
