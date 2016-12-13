@@ -7,6 +7,8 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
+use common\models\Session;
+
 /**
  * User model
  *
@@ -23,7 +25,6 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 
@@ -49,11 +50,25 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public function rules()
+    /*public function rules()
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+        ];
+    }*/
+
+    public function rules()
+    {
+        return [
+            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['status', 'created_at', 'updated_at', 'contacto'], 'integer'],
+            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['primeiro_nome', 'ultimo_nome'], 'string', 'max' => 20],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['password_reset_token'], 'unique'],
         ];
     }
 
@@ -189,6 +204,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
 
-
-
+    public function generateSessionToken() {
+        return sha1($this->password_hash . $this->email . time() . $this->username);
+    }
 }
