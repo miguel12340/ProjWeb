@@ -26,7 +26,7 @@ $this->title = 'Qwartus - Home';
             <div class="col-md-6">
                 <p>
                 <?= 
-                    Html::a('Pesquisa', ['/site/index'], ['class' => 'btn btn-primary btn-lg']) 
+                    Html::a('Pesquisa', ['/site/search'], ['class' => 'btn btn-primary btn-lg']) 
                  ?>
                 </p>
             </div>
