@@ -7,9 +7,6 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 
-use app\models\User;
-use backend\models\UpdateUserForm;
-
 /**
  * Site controller
  */
@@ -97,28 +94,6 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    public function actionMusers()
-    {
-        $users = User::find()->all();
-
-        $modelUpdateUser = new UpdateUserForm();
-        if ($modelUpdateUser->load(Yii::$app->request->post()) && $modelUpdateUser->validate()) {
-            if ($modelUpdateUser->update()) {
-                Yii::$app->session->setFlash('success', '1 User foi Actualizado com sucesso!!');
-
-                return $this->refresh();
-            } else {
-                Yii::$app->session->setFlash('error', 'Erro, 1 User não foi Actualizado.');
-            }
-        }
-
-        return $this->render('musers', [
-                'users' => $users,
-                'modelUpdateUser' => $modelUpdateUser,
-            ]);
-
     }
 
 }

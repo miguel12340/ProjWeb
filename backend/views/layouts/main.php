@@ -10,6 +10,8 @@ use yii\widgets\Breadcrumbs;
 use backend\assets\AppAsset;
 use common\widgets\Alert;
 
+use yii\bootstrap\Dropdown;
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -40,7 +42,17 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => 'Manage Users', 'url' => ['/site/musers']];
+        $menuItems[] = ['label' => 'Gerir',
+                        'items' => [
+                                    ['label' => 'Anuncios', 'url' => ['/anuncio/index']],
+                                     '<li class="divider"></li>',
+                                    ['label' => 'Concelhos', 'url' => ['/concelho/index']],
+                                     '<li class="divider"></li>',
+                                    ['label' => 'Distritos', 'url' => ['/distrito/index']],
+                                     '<li class="divider"></li>',
+                                    ['label' => 'Users', 'url' => ['/user/index']],
+                                ],
+                        ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

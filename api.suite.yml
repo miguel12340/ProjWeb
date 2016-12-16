@@ -1,0 +1,4 @@
+class_name: ApiGuy
+modules:
+    enabled:
+        - \Helper\Api
