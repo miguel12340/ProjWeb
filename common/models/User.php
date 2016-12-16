@@ -52,9 +52,24 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function rules()
     {
+        /*
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+<<<<<<< HEAD
+=======
+        ];*/
+
+        return [
+            [['username', 'email'], 'required'],
+            [['status', 'created_at', 'updated_at', 'contacto'], 'integer'],
+            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['primeiro_nome', 'ultimo_nome'], 'string', 'max' => 20],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['password_reset_token'], 'unique'],
+>>>>>>> origin/master
         ];
     }
 
@@ -192,5 +207,28 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function generateSessionToken() {
         return sha1($this->password_hash . $this->email . time() . $this->username);
+    }
+
+
+    //------------------------------------------------------------------------------------
+    public function getAdministradors()
+    {
+        return $this->hasMany(Administrador::className(), ['ce_id_utilizador' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegistados()
+    {
+        return $this->hasMany(Registado::className(), ['ce_id_utilizador' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSessions()
+    {
+        return $this->hasMany(Session::className(), ['userId' => 'id']);
     }
 }
