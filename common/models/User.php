@@ -56,8 +56,6 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-<<<<<<< HEAD
-=======
         ];*/
 
         return [
@@ -69,7 +67,6 @@ class User extends ActiveRecord implements IdentityInterface
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
->>>>>>> origin/master
         ];
     }
 
@@ -214,14 +211,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAdministradors()
     {
         return $this->hasMany(Administrador::className(), ['ce_id_utilizador' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRegistados()
-    {
-        return $this->hasMany(Registado::className(), ['ce_id_utilizador' => 'id']);
     }
 
     /**

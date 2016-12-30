@@ -8,14 +8,14 @@ use Yii;
  * This is the model class for table "anuncio".
  *
  * @property integer $id_anuncio
- * @property integer $ce_id_registado
+ * @property integer $ce_id_user
  * @property string $asunto
  * @property string $preco
  * @property string $descricao
  * @property integer $id_distrito
  * @property integer $id_concelho
  *
- * @property Registado $ceIdRegistado
+ * @property User $id
  * @property Distritos $idDistrito
  * @property Concelhos $idConcelho
  * @property Imagem[] $imagems
@@ -36,11 +36,11 @@ class Anuncio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ce_id_registado', 'id_distrito', 'id_concelho'], 'integer'],
+            [['ce_id_user', 'id_distrito', 'id_concelho'], 'integer'],
             [['preco'], 'number'],
             [['descricao'], 'string'],
             [['asunto'], 'string', 'max' => 255],
-            [['ce_id_registado'], 'exist', 'skipOnError' => true, 'targetClass' => Registado::className(), 'targetAttribute' => ['ce_id_registado' => 'id_registado']],
+            [['ce_id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['ce_id_user' => 'id']],
             [['id_distrito'], 'exist', 'skipOnError' => true, 'targetClass' => Distritos::className(), 'targetAttribute' => ['id_distrito' => 'id_distritos']],
             [['id_concelho'], 'exist', 'skipOnError' => true, 'targetClass' => Concelhos::className(), 'targetAttribute' => ['id_concelho' => 'id_concelhos']],
         ];
@@ -53,7 +53,7 @@ class Anuncio extends \yii\db\ActiveRecord
     {
         return [
             'id_anuncio' => 'Id Anuncio',
-            'ce_id_registado' => 'Ce Id Registado',
+            'ce_id_user' => 'Ce Id User',
             'asunto' => 'Asunto',
             'preco' => 'Preco',
             'descricao' => 'Descricao',
@@ -65,9 +65,9 @@ class Anuncio extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCeIdRegistado()
+    public function getCeIdUser()
     {
-        return $this->hasOne(Registado::className(), ['id_registado' => 'ce_id_registado']);
+        return $this->hasOne(User::className(), ['id' => 'ce_id_user']);
     }
 
     /**

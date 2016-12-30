@@ -41,11 +41,11 @@
 				</div>
 				<div class="col-lg-5">
 					<div class="form-group">
-						<?= $form->field($model, 'concelhos')->dropDownList(array(),array('prompt' => '--- Seleciona o Concelho ---')); ?>						
+						<?= $form->field($model, 'concelhos')->dropDownList(array(),array('prompt' => '--- Seleciona o Concelho ---')); ?>
 					</div>
 				</div>
 				<div class="form-group">
-					<?= Html::submitButton('Procurar', ['class' => 'btn btn-primary', 'name' => 'search-button']) ?>					
+					<?= Html::submitButton('Procurar', ['class' => 'btn btn-primary', 'name' => 'search-button']) ?>
 				</div>
 			<?php ActiveForm::end(); ?>
 		</div>
@@ -57,28 +57,28 @@
 			<h1>Resultados</h1>
 			<div class="row">
 				<ul>
-				<?php 
-					if (isset($anunciosp)) {
-						foreach ($anunciosp as $anunciop) {
-	                    echo '<div class="col-sm-6 col-md-4">
-	                                <div class="thumbnail">
-	                                    <img src="'.$anunciop->caminho.'" alt="'.$anunciop->asunto.'">
+				<?php if (isset($anunciosp)) { ?>
+					<?php foreach ($anunciosp as $anunciop) { ?>
+	                    	<div class="col-sm-6 col-md-4">
+	                            <div class="thumbnail">
+	                                	<?php //Html::img('data:image/png;base64,'.$anuncio->imagem0) ?>
+	                                    <img src="data:image/png;base64,'.$anuncio->imagem0.'" alt="'.$anunciop->asunto.'">
 	                                    <div class="caption">
-	                                        <h3>'.$anunciop->asunto.'</h3>
-	                                        <p>'.Html::encode("{$anunciop->descricao}").'</p>
+	                                        <h3><?= $anunciop->asunto ?></h3>
+	                                        <p><?= Html::encode("{$anunciop->descricao}") ?></p>
 	                                        <p>
 	                                            <a href="#" class="btn btn-primary" role="button">Ver Mais</a>
 	                                            <a href="#" class="btn btn-default" role="button">Ver Contacto</a>
 	                                        </p>
 	                                    </div>
 	                                </div>
-	                            </div>';
-		                }
-					}else {
-						foreach ($anuncios as $anuncio) {
+	                            </div>
+					<?php } ?>
+				<?php }else { ?>
+					<?php foreach ($anuncios as $anuncio) {
 						echo '<div class="col-sm-6 col-md-4">
 								<div class="thumbnail">
-									<img src="'.$anuncio->caminho.'" alt="'.$anuncio->asunto.'">
+									<img src="data:image/png;base64,'.$anuncio->imagem0.'" alt="'.$anuncio->asunto.'">
 									<div class="caption">
 										<h3>'.$anuncio->asunto.'</h3>
 										<p>'.Html::encode("{$anuncio->descricao}").'</p>
