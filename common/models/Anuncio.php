@@ -77,6 +77,7 @@ class Anuncio extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Distritos::className(), ['id_distritos' => 'id_distrito']);
     }
+	
 
     /**
      * @return \yii\db\ActiveQuery
