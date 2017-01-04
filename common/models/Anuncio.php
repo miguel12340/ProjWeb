@@ -8,14 +8,14 @@ use Yii;
  * This is the model class for table "anuncio".
  *
  * @property integer $id_anuncio
- * @property integer $ce_id_user
+ * @property integer $ce_id_registado
  * @property string $asunto
  * @property string $preco
  * @property string $descricao
  * @property integer $id_distrito
  * @property integer $id_concelho
  *
- * @property User $id
+ * @property Registado $ceIdRegistado
  * @property Distritos $idDistrito
  * @property Concelhos $idConcelho
  * @property Imagem[] $imagems
@@ -77,7 +77,6 @@ class Anuncio extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Distritos::className(), ['id_distritos' => 'id_distrito']);
     }
-	
 
     /**
      * @return \yii\db\ActiveQuery

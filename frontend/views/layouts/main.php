@@ -34,21 +34,16 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    $menuItems = [
+        ['label' => 'Início', 'url' => ['/site/index']],
+        ['label' => 'Procurar', 'url' => ['/site/search']],
+        ['label' => 'About', 'url' => ['/site/about']],
+        ['label' => 'Contact', 'url' => ['/site/contact']],
+    ];
     if (Yii::$app->user->isGuest) {
-        $menuItems = [
-            ['label' => 'Inicio', 'url' => ['/site/index']],
-            ['label' => 'Procurar', 'url' => ['/site/search']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => 'Sign Up', 'url' => ['/site/signup']],
-            ['label' => 'Login', 'url' => ['/site/login']],
-        ];
-    }else {
-        $menuItems = [
-            ['label' => 'Perfil', 'url' => ['/site/index']],
-            ['label' => 'Procurar', 'url' => ['/site/search']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-        ];
+        $menuItems[] = ['label' => 'Sign Up', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+    } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

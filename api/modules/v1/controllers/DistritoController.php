@@ -6,5 +6,5 @@ use yii\rest\ActiveController;
 
 class DistritoController extends ActiveController
 {
-    public $modelClass = 'frontend\models\Distritos';
+    public $modelClass = 'common\models\Distritos';
 }

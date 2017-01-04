@@ -36,7 +36,7 @@
                         echo "<option value='".$concelho->id_concelhos."'>".$concelho->nome_concelhos."</option>";
                     }
                 }else {
-                    echo "<option>--- Seleciona o Concelho ---</option>";
+                    echo "<option> - </option>";
                 }
 
         }

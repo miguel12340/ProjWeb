@@ -14,18 +14,12 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
-    use frontend\models\SearchForm;
-    use yii\data\Pagination;
-    use app\models\Anuncio;
-    use app\models\Anuncios;
-    use app\models\Distritos;
-    use app\models\Concelhos;
-    use yii\helpers\Html;
-
-    use frontend\models\CreateAnuncio;
-    use frontend\models\UpdateAnuncio;
-    use frontend\models\UpdateUser;
-    use yii\web\UploadedFile;
+use frontend\models\SearchForm;
+use yii\data\Pagination;
+use app\models\Anuncios;
+use app\models\Distritos;
+use app\models\Concelhos;
+use yii\helpers\Html;
 
 /**
  * Site controller
@@ -86,53 +80,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest){
-            return $this->render('index');
-        }else {
-            //Busca os anuncios do utilizador
-            $anuncios = Anuncio::find()
-                            ->where(['ce_id_user' => Yii::$app->user->identity->id])
-                            ->all();
-
-            $update = new UpdateUser();
-            $create = new CreateAnuncio();
-            $update_anuncio = new UpdateAnuncio();
-            if ($update->load(Yii::$app->request->post())) {
-                $update->imagem = UploadedFile::getInstance($update, 'imagem');// --> Busca a imagem que foi uploaded
-                if ($update->updateUser()) {
-                    Yii::$app->session->setFlash('success', 'Atualizou o Perfil com Sucesso!!.');
-                    return $this->refresh();
-                }else {
-                    Yii::$app->session->setFlash('error', 'Alguma Coisa Correu Mal, Por Favor Contate-nos.');
-                }
-            }
-            if ($create->load(Yii::$app->request->post())) {
-                $create->imagens = UploadedFile::getInstances($create, 'imagens');
-                if ($create->createAnuncio()) {
-                    Yii::$app->session->setFlash('success', 'Parabéns Criou um Novo Anuncio.');
-                    return $this->refresh();
-                }else {
-                    Yii::$app->session->setFlash('error', 'Alguma Coisa Correu Mal, Por Favor Contate-nos.');
-                }
-            }
-            if ($update_anuncio->load(Yii::$app->request->post())) {
-                $update_anuncio->imagens = UploadedFile::getInstances($update_anuncio, 'imagens');
-                if ($update_anuncio->updateAnuncio()) {
-                    Yii::$app->session->setFlash('success', 'Parabéns o Anuncio foi Atualizado.');
-                    return $this->refresh();
-                }else {
-                    Yii::$app->session->setFlash('error', 'Alguma Coisa Correu Mal, Por Favor Contate-nos.');
-                }
-            }
-
-            return $this->render('index',[
-                    'anuncios' => $anuncios,
-                    'update' => $update,
-                    'create' => $create,
-                    'update_anuncio' => $update_anuncio,
-                ]);
-        }
-
+        return $this->render('index');
     }
 
     /**
@@ -148,11 +96,8 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-
             return $this->goBack();
-
         } else {
-
             return $this->render('login', [
                 'model' => $model,
             ]);
@@ -216,10 +161,9 @@ class SiteController extends Controller
         $model = new SearchForm();
         if ($model->load(Yii::$app->request->post())) {
 
-            $anunciosp = Anuncio::find()
-                            ->where(['id_distrito' => $model->distritos])
-                            ->andWhere(['id_concelho' => $model->concelhos])
-                            ->andWhere(['status' => 'not suspended'])
+            $anunciosp = Anuncios::find()
+                            ->where(['id_distritos' => $model->distritos])
+                            ->andWhere(['id_concelhos' => $model->concelhos])
                             ->all();
 
             return $this->render('search', [
@@ -227,11 +171,9 @@ class SiteController extends Controller
                 'anunciosp' => $anunciosp,
             ]);
 
-        }else {
+        } else {
 
-            $anuncios = Anuncio::find()
-                            ->where(['status'=>'not suspended'])
-                            ->all();
+            $anuncios = Anuncios::find()->all();
 
             return $this->render('search', [
                 'model' => $model,
