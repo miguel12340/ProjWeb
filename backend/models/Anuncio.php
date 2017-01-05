@@ -65,9 +65,9 @@ class Anuncio extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCeIdUser()
+    public function getCeIdRegistado()
     {
-        return $this->hasOne(User::className(), ['id' => 'ce_id_user']);
+        return $this->hasOne(Registado::className(), ['id_registado' => 'ce_id_user']);
     }
 
     /**

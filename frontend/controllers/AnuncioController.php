@@ -81,11 +81,11 @@
 		 * Vai para a página do Anúncio
 		 */
 		public function actionVer($id_anuncio)
-		{			
-				$anuncio = Anuncio::findOne($id_anuncio);			//->Busca o Anuncio
-				$dis = Distritos::findOne($anuncio->id_distrito);	//->Busca o Distrito
-				$con = Concelhos::findOne($anuncio->id_concelho);	//->Busca o Concelho
-				$user = User::findOne($anuncio->ce_id_user);		//->Busca o User
+		{
+			$anuncio = Anuncio::findOne($id_anuncio);			//->Busca o Anuncio
+			$dis = Distritos::findOne($anuncio->id_distrito);	//->Busca o Distrito
+			$con = Concelhos::findOne($anuncio->id_concelho);	//->Busca o Concelho
+			$user = User::findOne($anuncio->ce_id_user);		//->Busca o User
 
 			return $this->render('ver',[
 					'anuncio'=>$anuncio,
@@ -93,6 +93,7 @@
 					'con'=>$con,
 					'user'=>$user,
 				]);
+			
 		}
 
 	}

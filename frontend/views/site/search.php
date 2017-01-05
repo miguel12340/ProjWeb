@@ -41,11 +41,11 @@
 				</div>
 				<div class="col-lg-5">
 					<div class="form-group">
-						<?= $form->field($model, 'concelhos')->dropDownList(array(),array('prompt' => '--- Seleciona o Concelho ---')); ?>
+						<?= $form->field($model, 'concelhos')->dropDownList(array(),array('prompt' => '--- Seleciona o Concelho ---')); ?>						
 					</div>
 				</div>
 				<div class="form-group">
-					<?= Html::submitButton('Procurar', ['class' => 'btn btn-primary', 'name' => 'search-button']) ?>
+					<?= Html::submitButton('Procurar', ['class' => 'btn btn-primary', 'name' => 'search-button']) ?>					
 				</div>
 			<?php ActiveForm::end(); ?>
 		</div>
@@ -64,7 +64,7 @@
                                 	<?= Html::img('data:image/jpg;base64,'.$anunciop->imagem0,['width'=>'320',                                															  'alt' => $anunciop->asunto,
                                 															  'class'=>'img-thumbnail']) ?>
                                     <div class="caption">
-                                        <h3><?= $anunciop->asunto.' - '.$anunciop->preco.'€' ?></h3>
+                                        <h3><?= $anunciop->asunto.' em'.$des->distrito.', '$con->concelho.' por '.$anunciop->preco.'€' ?></h3>
                                         <p><?= Html::encode("{$anunciop->descricao}") ?></p>
                                         <p>
 										<?= Html::a('Ver Mais',['/anuncio/ver','id_anuncio'=>$anunciop->id_anuncio],['class'=>'btn btn-primary']) ?>

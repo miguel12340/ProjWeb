@@ -1,7 +1,7 @@
 <?php
 
-    /* @var $this yii\web\View */
-    use yii\helpers\Html;
+/* @var $this yii\web\View */
+use yii\helpers\Html;
 
     $this->title = 'Qwartus - Home';
 ?>
@@ -23,5 +23,4 @@
             </div>
         </div>
     </div>
-
 </div>

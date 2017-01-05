@@ -52,13 +52,7 @@ class SignupForm extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-
-        //Guarda na BD a imagem default
-        $img_data = file_get_contents('../web/css/images/User-Default.jpg');
-        $base64 = base64_encode($img_data);
-
-        $user->imagem = $base64;        
-
+        
         return $user->save() ? $user : null;
     }
 }

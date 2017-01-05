@@ -14,18 +14,15 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
-    use frontend\models\SearchForm;
-    use yii\data\Pagination;
-    use app\models\Anuncio;
-    use app\models\Anuncios;
-    use app\models\Distritos;
-    use app\models\Concelhos;
-    use yii\helpers\Html;
-
-    use frontend\models\CreateAnuncio;
-    use frontend\models\UpdateAnuncio;
-    use frontend\models\UpdateUser;
-    use yii\web\UploadedFile;
+use frontend\models\SearchForm;
+use yii\data\Pagination;
+use app\models\Anuncio;
+use app\models\Distritos;
+use app\models\Concelhos;
+use yii\helpers\Html;
+use frontend\models\UpdateUser;
+use frontend\models\CreateAnuncio;
+use frontend\models\UpdateAnuncio;
 
 /**
  * Site controller
@@ -157,9 +154,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
             return $this->redirect(['/site/perfil']);
-
-        } else {
-
+        }else {
             return $this->render('login', [
                 'model' => $model,
             ]);
@@ -234,11 +229,9 @@ class SiteController extends Controller
                 'anunciosp' => $anunciosp,
             ]);
 
-        }else {
+        } else {
 
-            $anuncios = Anuncio::find()
-                            ->where(['status'=>'not suspended'])
-                            ->all();
+            $anuncios = Anuncio::find()->all();
 
             return $this->render('search', [
                 'model' => $model,
