@@ -12,7 +12,7 @@
 	use app\models\Distritos;
 
 	$this->title = 'Qwartus - Procurar';
-	$this->params['breadcrumbs'][] = $this->title;
+	//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid site-search">
 
@@ -51,7 +51,7 @@
 		</div>
 	</div>
 <?php // Fim do Formulario ?>
-<br><br>
+<hr>
 <?php // Inicio dos resultados ?>
 		<div class="container-fluid">
 			<h1>Resultados</h1>
@@ -61,38 +61,42 @@
 					<?php foreach ($anunciosp as $anunciop) { ?>
 	                    	<div class="col-sm-6 col-md-4">
 	                            <div class="thumbnail">
-	                                	<?php //Html::img('data:image/png;base64,'.$anuncio->imagem0) ?>
-	                                    <img src="data:image/png;base64,'.$anuncio->imagem0.'" alt="'.$anunciop->asunto.'">
-	                                    <div class="caption">
-	                                        <h3><?= $anunciop->asunto ?></h3>
-	                                        <p><?= Html::encode("{$anunciop->descricao}") ?></p>
-	                                        <p>
-	                                            <a href="#" class="btn btn-primary" role="button">Ver Mais</a>
-	                                            <a href="#" class="btn btn-default" role="button">Ver Contacto</a>
-	                                        </p>
-	                                    </div>
-	                                </div>
-	                            </div>
+                                	<?= Html::img('data:image/jpg;base64,'.$anunciop->imagem0,['width'=>'320',                                															  'alt' => $anunciop->asunto,
+                                															  'class'=>'img-thumbnail']) ?>
+                                    <div class="caption">
+                                        <h3><?= $anunciop->asunto.' - '.$anunciop->preco.'€' ?></h3>
+                                        <p><?= Html::encode("{$anunciop->descricao}") ?></p>
+                                        <p>
+										<?= Html::a('Ver Mais',['/anuncio/ver','id_anuncio'=>$anunciop->id_anuncio],['class'=>'btn btn-primary']) ?>
+                                        </p>
+                                    </div>
+                                </div>
+							</div>
 					<?php } ?>
 				<?php }else { ?>
-					<?php foreach ($anuncios as $anuncio) {
-						echo '<div class="col-sm-6 col-md-4">
-								<div class="thumbnail">
-									<img src="data:image/png;base64,'.$anuncio->imagem0.'" alt="'.$anuncio->asunto.'">
+					<?php foreach ($anuncios as $anuncio) { ?>
+							<div class="col-sm-6 col-md-4">
+								<div class="thumbnail" style="min-height: 477px">
+	                                <?= Html::img('data:image/jpg;base64,'.$anuncio->imagem0,['width'=>'320',                                															  'alt' => $anuncio->asunto,
+	                                														  'class'=>'img-thumbnail']) ?>
 									<div class="caption">
-										<h3>'.$anuncio->asunto.'</h3>
-										<p>'.Html::encode("{$anuncio->descricao}").'</p>
+										<h3><?= $anuncio->asunto.' - '.$anuncio->preco.'€' ?></h3>
+										<?php 
+											if (strlen($anuncio->descricao) > 200) {
+
+												$anuncio->descricao = substr($anuncio->descricao,0,200-3).'...';
+
+											}
+										 ?>
+										<p><?= Html::encode("{$anuncio->descricao}") ?></p>
 										<p>
-											<a href="#" class="btn btn-primary" role="button">Ver Mais</a>
-											<a href="#" class="btn btn-default" role="button">Ver Contacto</a>
+										<?= Html::a('Ver Mais',['/anuncio/ver','id_anuncio'=>$anuncio->id_anuncio],['class'=>'btn btn-primary']) ?>
 										</p>
 									</div>
 								</div>
-							</div>';
-						}
-					}
-				 ?>
-
+							</div>
+					<?php } ?>
+				<?php } ?>
 				</ul>
 			</div>
 		</div>

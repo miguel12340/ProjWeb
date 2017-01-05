@@ -6,5 +6,5 @@ use yii\rest\ActiveController;
 
 class ConcelhoController extends ActiveController
 {
-    public $modelClass = 'frontend\models\Concelhos';
+    public $modelClass = 'common\models\Concelhos';
 }

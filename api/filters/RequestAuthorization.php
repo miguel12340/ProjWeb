@@ -6,9 +6,7 @@ use Yii;
 use yii\base\ActionFilter;
 use yii\filters\auth\AuthInterface;
 use yii\web\UnauthorizedHttpException;
-//-
 use common\models\Session;
-//-
 
 final class RequestAuthorization extends ActionFilter implements AuthInterface {
 

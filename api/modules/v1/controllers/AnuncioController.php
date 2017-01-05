@@ -6,5 +6,5 @@ use yii\rest\ActiveController;
 
 class AnuncioController extends ActiveController
 {
-    public $modelClass = 'frontend\models\Anuncios';
+    public $modelClass = 'common\models\Anuncio';
 }

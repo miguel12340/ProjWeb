@@ -45,14 +45,14 @@
 
             if (isset($this->imagem)) {
                 //Guarda na pasta
-                $this->imagem->saveAs('../web/css/images/' . $this->imagem->baseName . '.' . $this->imagem->extension);
+                $this->imagem->saveAs('../web/images/' . $this->imagem->baseName . '.' . $this->imagem->extension);
                 //Guarda na BD a imagem
-                $img_data = file_get_contents('../web/css/images/' . $this->imagem->baseName . '.' . $this->imagem->extension);
+                $img_data = file_get_contents('../web/images/' . $this->imagem->baseName . '.' . $this->imagem->extension);
                 $base64 = base64_encode($img_data);
 
                 $user->imagem = $base64;
                 //-> apaga a imagem da pasta 
-                unlink('../web/css/images/' . $this->imagem->baseName . '.' . $this->imagem->extension);
+                unlink('../web/images/' . $this->imagem->baseName . '.' . $this->imagem->extension);
             }         
 
             return $user->save() ? $user : null;

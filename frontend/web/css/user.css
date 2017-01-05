@@ -1,0 +1,23 @@
+
+.wrap-user {
+    background: url('../images/back-user.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+
+	min-height: 100%;
+	height: auto;
+	margin: 0 auto -60px;
+	padding: 0 0 60px;
+}
+
+.wrap-user > .container {
+    padding: 70px 15px 20px;
+}
+
+#greetings{
+	width: 100px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+}

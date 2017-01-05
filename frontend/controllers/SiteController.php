@@ -86,53 +86,60 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest){
+        if (Yii::$app->user->isGuest) {
             return $this->render('index');
         }else {
-            //Busca os anuncios do utilizador
-            $anuncios = Anuncio::find()
-                            ->where(['ce_id_user' => Yii::$app->user->identity->id])
-                            ->all();
+            return $this->redirect(['/site/perfil']);
+        }
+    }
 
-            $update = new UpdateUser();
-            $create = new CreateAnuncio();
-            $update_anuncio = new UpdateAnuncio();
-            if ($update->load(Yii::$app->request->post())) {
-                $update->imagem = UploadedFile::getInstance($update, 'imagem');// --> Busca a imagem que foi uploaded
-                if ($update->updateUser()) {
-                    Yii::$app->session->setFlash('success', 'Atualizou o Perfil com Sucesso!!.');
-                    return $this->refresh();
-                }else {
-                    Yii::$app->session->setFlash('error', 'Alguma Coisa Correu Mal, Por Favor Contate-nos.');
-                }
-            }
-            if ($create->load(Yii::$app->request->post())) {
-                $create->imagens = UploadedFile::getInstances($create, 'imagens');
-                if ($create->createAnuncio()) {
-                    Yii::$app->session->setFlash('success', 'Parabéns Criou um Novo Anuncio.');
-                    return $this->refresh();
-                }else {
-                    Yii::$app->session->setFlash('error', 'Alguma Coisa Correu Mal, Por Favor Contate-nos.');
-                }
-            }
-            if ($update_anuncio->load(Yii::$app->request->post())) {
-                $update_anuncio->imagens = UploadedFile::getInstances($update_anuncio, 'imagens');
-                if ($update_anuncio->updateAnuncio()) {
-                    Yii::$app->session->setFlash('success', 'Parabéns o Anuncio foi Atualizado.');
-                    return $this->refresh();
-                }else {
-                    Yii::$app->session->setFlash('error', 'Alguma Coisa Correu Mal, Por Favor Contate-nos.');
-                }
-            }
+    /**
+     * Pagina de Perfil
+     */
+    public function actionPerfil()
+    {
+        //Busca os anuncios do utilizador
+        $anuncios = Anuncio::find()
+                        ->where(['ce_id_user' => Yii::$app->user->identity->id])
+                        ->all();
 
-            return $this->render('index',[
-                    'anuncios' => $anuncios,
-                    'update' => $update,
-                    'create' => $create,
-                    'update_anuncio' => $update_anuncio,
-                ]);
+        $update = new UpdateUser();
+        $create = new CreateAnuncio();
+        $update_anuncio = new UpdateAnuncio();
+        if ($update->load(Yii::$app->request->post())) {
+            $update->imagem = UploadedFile::getInstance($update, 'imagem');// --> Busca a imagem que foi uploaded
+            if ($update->updateUser()) {
+                Yii::$app->session->setFlash('success', 'Atualizou o Perfil com Sucesso!!.');
+                return $this->refresh();
+            }else {
+                Yii::$app->session->setFlash('error', 'Alguma Coisa Correu Mal, Por Favor Contate-nos.');
+            }
+        }
+        if ($create->load(Yii::$app->request->post())) {
+            $create->imagens = UploadedFile::getInstances($create, 'imagens');
+            if ($create->createAnuncio()) {
+                Yii::$app->session->setFlash('success', 'Parabéns Criou um Novo Anuncio.');
+                return $this->refresh();
+            }else {
+                Yii::$app->session->setFlash('error', 'Alguma Coisa Correu Mal, Por Favor Contate-nos.');
+            }
+        }
+        if ($update_anuncio->load(Yii::$app->request->post())) {
+            $update_anuncio->imagens = UploadedFile::getInstances($update_anuncio, 'imagens');
+            if ($update_anuncio->updateAnuncio()) {
+                Yii::$app->session->setFlash('success', 'Parabéns o Anuncio foi Atualizado.');
+                return $this->refresh();
+            }else {
+                Yii::$app->session->setFlash('error', 'Alguma Coisa Correu Mal, Por Favor Contate-nos.');
+            }
         }
 
+        return $this->render('perfil',[
+                'anuncios' => $anuncios,
+                'update' => $update,
+                'create' => $create,
+                'update_anuncio' => $update_anuncio,
+            ]);
     }
 
     /**
@@ -149,7 +156,7 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
-            return $this->goBack();
+            return $this->redirect(['/site/perfil']);
 
         } else {
 

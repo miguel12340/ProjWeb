@@ -15,6 +15,7 @@
             public $asunto;
             public $n_pessoas;
             public $descricao;
+            public $cordenadas;
             public $preco;
             // --> passa os id's do distrito e concelho
                 public $distritos;
@@ -30,6 +31,7 @@
             return [
 
                 [['asunto', 'n_pessoas', 'preco', 'descricao'], 'required'],
+                ['cordenadas', 'string', 'min' => 2, 'max' => 255],
 
                 [['distritos', 'concelhos'], 'required'],
 
@@ -45,6 +47,7 @@
             $anuncio->asunto = $this->asunto;
             $anuncio->n_pessoas = $this->n_pessoas;
             $anuncio->descricao = $this->descricao;
+            $anuncio->cordenadas = $this->cordenadas;
             $anuncio->preco = $this->preco;
             $anuncio->status = 'not suspended';
             $anuncio->id_distrito = $this->distritos;
@@ -52,7 +55,7 @@
 
             if (!$this->imagens) {
                 //Guarda na BD a imagem default
-                $img_data = file_get_contents('../web/css/images/Imagem-Default.jpg');
+                $img_data = file_get_contents('../web/images/Imagem-Default.jpg');
                 $base64 = base64_encode($img_data);
 
                 $anuncio->imagem0 = $base64;
@@ -60,14 +63,14 @@
             }else {
                 $data = array();
                 foreach ($this->imagens as $key => $imagem) {
-                    $imagem->saveAs('../web/css/images/' . $imagem->baseName . '.' . $imagem->extension);
+                    $imagem->saveAs('../web/images/' . $imagem->baseName . '.' . $imagem->extension);
 
-                    $img_data = file_get_contents('../web/css/images/' . $imagem->baseName . '.' . $imagem->extension);
+                    $img_data = file_get_contents('../web/images/' . $imagem->baseName . '.' . $imagem->extension);
                     $data = base64_encode($img_data);
 
                     $property = 'imagem' . $key;
                     $anuncio->$property = $data;
-                    unlink('../web/css/images/' . $imagem->baseName . '.' . $imagem->extension);
+                    unlink('../web/images/' . $imagem->baseName . '.' . $imagem->extension);
                 }
 
             }

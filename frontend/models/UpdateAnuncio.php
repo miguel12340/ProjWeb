@@ -19,6 +19,7 @@
 			public $asunto;
 			public $n_pessoas;
 			public $descricao;
+            public $cordenadas;
 			public $preco;
 			// --> passa os id's do distrito e concelho
 				public $distritos;
@@ -34,7 +35,8 @@
 			return [
 
 				[['id_anuncio', 'asunto', 'n_pessoas', 'preco', 'descricao'], 'required'],
-
+                ['cordenadas', 'string', 'min' => 2, 'max' => 255],
+                
 				[['distritos', 'concelhos'], 'required'],
 
 				[['imagens'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg', 'maxFiles' => 4],
@@ -49,6 +51,7 @@
 			$anuncio->n_pessoas = $this->n_pessoas;
 			$anuncio->preco = $this->preco;
 			$anuncio->descricao = $this->descricao;
+            $anuncio->cordenadas = $this->cordenadas;
 			$anuncio->id_distrito = $this->distritos;
 			$anuncio->id_concelho = $this->concelhos;
 
@@ -59,14 +62,14 @@
 				$anuncio->imagem3 = '';
 				$data = array();
 				foreach ($this->imagens as $key => $imagem) {
-					$imagem->saveAs('../web/css/images/' . $imagem->baseName . '.' . $imagem->extension);
+					$imagem->saveAs('../web/images/' . $imagem->baseName . '.' . $imagem->extension);
 
-					$img_data = file_get_contents('../web/css/images/' . $imagem->baseName . '.' . $imagem->extension);
+					$img_data = file_get_contents('../web/images/' . $imagem->baseName . '.' . $imagem->extension);
 					$data = base64_encode($img_data);
 
 					$property = 'imagem' . $key;
 					$anuncio->$property = $data;
-					unlink('../web/css/images/' . $imagem->baseName . '.' . $imagem->extension);
+					unlink('../web/images/' . $imagem->baseName . '.' . $imagem->extension);
 				}
 
 			}

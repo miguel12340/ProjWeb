@@ -8,10 +8,8 @@ use yii\rest\ActiveController;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 use yii\web\UnauthorizedHttpException;
-//-
 use common\models\User;
 use common\models\Session;
-//-
 use api\filters\RequestAuthorization;
 
 final class UserController extends ActiveController

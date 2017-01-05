@@ -4,7 +4,7 @@ body {
 }
 
 .wrap {
-    background: url('images/imgBack.jpg');
+    background: url('../images/imgBack.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
 
